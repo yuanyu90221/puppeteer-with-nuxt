@@ -4,12 +4,12 @@ const blueBird = require('bluebird');
 dotenv.config();
 const testAdminLogin = async ({exec_id}) => {
 
-    const browser = await puppeteer.launch({headless: false});
+    const browser = await puppeteer.launch({headless: true});
     const page = await browser.newPage();
     let isSuccess = false;
     try {
         await page.setViewport({ width: 1280, height: 800 });
-        await page.goto('http://192.168.1.114:8080');
+        await page.goto(process.env.WEBSITE_URI);
         await page.click('[data-cypress-id="loginBtn"]');
         await page.screenshot({ path: `redpill_web_login_modal${exec_id}.png`, fullPage: true });
         await page.type('[data-cypress-id="loginEmailInput"]', process.env.USER);
